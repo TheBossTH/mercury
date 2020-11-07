@@ -29,10 +29,10 @@ $row = $stmt->fetch();
 </head>
 
 <body>
+    <a href="allstaff.php" class="buttonback"><button>BACK</button></a>
     <div class="section">
         <form action="editconfirm.php" method="post">
             <img src="./img/<?= $row["staffno"] ?>.jpg" alt="Responsive image" width='150' class="rounded"><br><br>
-
             หมายเลขพนักงาน : <input type="text" name="staff" value="<?= $row["staffno"] ?>" disabled><br><br>
             <input type="hidden" value="<?= $row["staffno"] ?>" name="staffno" />
             ชื่อพนักงาน : <input type="text" name="staffname" value="<?= $row["staffname"] ?>" pattern="[A-Za-z0-9ก-์\s]{2,50}"><br><br>
