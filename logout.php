@@ -1,5 +1,5 @@
 <?php
 session_start();
 session_destroy();
-header("Location: index.html");
+Header("Refresh:0 , url=index.html");
 exit();

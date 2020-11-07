@@ -1,10 +1,15 @@
 <?php
 session_start();
-include "connect.php";
-// $user_id = "MB00001";
+if (
+    $_SESSION['mem_id'] == null ||
+    $_SESSION["mem_role"] != "customer"
+) {
+    header("location: ../index.html");
+}
+include "./connect.php";
 if (isset($_GET['staff_id'])) {
-    $staff_id = $_GET['staff_id'];
     $stmt = $pdo->prepare("SELECT * FROM staff WHERE staffno=?");
+    $staff_id = $_GET['staff_id'];
     $stmt->bindParam(1, $staff_id);
     $stmt->execute();
     $data = $stmt->fetch();
@@ -28,22 +33,28 @@ if (isset($_GET['staff_id'])) {
     <h1 id="keyword">ชำระเงิน</h1>
     <main class="container">
         <div>
-            <img class="staff_pic" src="https://pbs.twimg.com/media/DoBJxFRUwAEDZz7.jpg" alt="staff_pic" laading="lazy">
+            <img class="staff_pic" src="Pic/<?= $_GET['staff_id'] . ".jpg" ?>" alt="staff_pic" laading="lazy">
         </div>
         <div class="payment">
-            <form action="" method="post">
-                <h1>ชื่อ : <?= $data['staffname'] ?></h1>
-                <h3>เวลาเข้างาน : <?= $data['worktime'] ?></h3>
-                <h3>เพศ : <?= $data['gender'] ?></h3>
-                <input name="datedepart" type="date" />
-                <input type="time" name="" id=""><br />
+            <form method="get" id="regis_form" action="payment.php">
+                <h1>ชื่อ : <?= $data['staffname'] ?></h1><br />
+                <h2>รายละเอียด</h2>
+                <div class="detail">
+                    <h3>เพศ : <?= $data['gender'] ?></h3>
+                    <h3>ราคา : <?= $data['price'] ?></h3>
+                </div>
+                <br />
+                <h3>เวลาเข้าใช้บริการ</h3>
+                <input name="date" type="date" id="date" required />
+                <input type="time" name="time" id="time" required><br /><br />
+                <input type="hidden" name="price" value="<?= $data['price'] ?>">
+                <input type="hidden" name="branch_no" value="<?= $_GET['branch_no'] ?>">
+                <input type="submit" class="omise-checkout-button-x" value="เข้าใช้บริการและชำระเงิน">
             </form>
-            <form name="checkoutForm" method="POST" action="payment.php">
-                <script type="text/javascript" src="https://cdn.omise.co/omise.js" data-key="pkey_test_5ls6esdutigbhc82itf" data-image="https://trello-attachments.s3.amazonaws.com/5f8ff8a690b30d7ac410c7cd/5fa4251eea8d8a8d7db8ec75/2128ae530014f8494306fbcdd5fef5a8/The_Mercury.png" data-frame-label="The Mercury" data-button-label="ใช้บริการ" data-submit-label="Submit" data-location="no" data-amount="150000" data-currency="thb">
-                </script>
-                <!--the script will render <input type="hidden" name="omiseToken"> for you automatically-->
-            </form>
-            <a href="../" style="text-align: center">กลับหน้าหลัก</a>
+            <br />
+            <div class="link">
+                <a href="./Staff8.php">กลับหน้าหลัก</a>
+            </div>
         </div>
     </main>
     <script>
