@@ -23,6 +23,7 @@ if (
 </head>
 
 <body>
+    <a href="index.php" class="buttonback"><button>BACK</button></a>
     <div class="section">
         <h1>แก้ไขพนักงาน</h1>
         <?php

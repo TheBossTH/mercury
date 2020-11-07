@@ -46,3 +46,20 @@ button {
   background-color: #964ec2;
   font-family: "Mitr", sans-serif;
 }
+
+.buttonback {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .section {
+    margin-top: 20%;
+  }
+  .buttonback {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+}
